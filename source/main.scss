@@ -1,0 +1,82 @@
+@use 'config/reset';
+@use 'config/variaveis';
+@use 'sass:math';
+
+@mixin elementoForm() {
+    padding: 8px;
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+@function pixel_para_em($alvo_em_pixel, $contexto_em_pixel: 16px) {
+    @return math.div($alvo_em_pixel, $contexto_em_pixel) + em;
+}
+
+body {
+    background-color: #eee;
+}
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+header {
+    padding: 16px 0;
+    background-color: variaveis.$cor_principal;
+    text-align: center;
+    color: #fff;
+}
+
+.form-container {
+    height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 760px;
+
+    h2 {
+        font-size: pixel_para_em(48px);
+        text-align: center;
+    }
+
+    form {
+        max-width: 480px;
+        width: 100%;
+        margin-top: 40px;
+
+        label {
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        input {
+            @include elementoForm();
+            background-color: transparent;
+            border: none;
+            border-bottom: 3px solid variaveis.$cor_principal;
+        }
+
+        button {
+            @include elementoForm();
+            background-color: variaveis.$cor_secundaria;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            &:hover {
+                background-color: darken(variaveis.$cor_secundaria, 10%);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: variaveis.$mobile) {
+    .container {
+        max-width: 80%;
+    }
+}
